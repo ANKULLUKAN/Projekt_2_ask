@@ -1,0 +1,175 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper, margin=1.5cm}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\Large \textbf{Laboratorium Architektury Systemów Komputerowych}} \\[1.5cm]
+    {\Huge \textbf{Sprawozdanie z projektu nr 2}} \\[1cm]
+    {\Large Aplikacja do pomiaru czasu reakcji} \\[3cm]
+    \begin{flushleft}
+        \textbf{Wykonał:} Łukasz Mroczek 198146, Łukasz Orluk 197641\\       
+        \textbf{Grupa:} KSD2A\\
+    \end{flushleft}
+    \vfill
+    {\large \today}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+
+\newpage
+
+\section{Sformułowanie zadania i założenia szczegółowe}
+
+Celem zadania było stworzenie aplikacji uzależnionej od czasu, umożliwiającej pomiar czasu reakcji użytkownika na różnego rodzaju bodźce. Program miał symulować tester sprawności psychomotorycznej, np. dla kandydatów na kierowców.
+
+\subsection{Założenia szczegółowe}
+
+\begin{itemize}
+    \item Aplikacja została wykonana w języku Python z wykorzystaniem biblioteki PyQt5 oraz matplotlib.
+    \item Program bada trzy typy reakcji:
+    \begin{itemize}
+        \item prosty czas reakcji na bodziec optyczny,
+        \item prosty czas reakcji na bodziec akustyczny,
+        \item złożony czas reakcji (wybór odpowiedniego klawisza).
+    \end{itemize}
+    \item Każdy test składa się z:
+    \begin{itemize}
+        \item opisu,
+        \item fazy treningowej (bez oceny),
+        \item testu właściwego (z pomiarem wyników).
+    \end{itemize}
+    \item Czas reakcji mierzony jest przy użyciu funkcji \texttt{time.perf\_counter()}, zapewniającej wysoką dokładność.
+    \item Pomiędzy próbami stosowane są losowe opóźnienia (1–4 s), aby zapobiec przewidywaniu momentu pojawienia się bodźca.
+    \item Wyniki prezentowane są w formie:
+    \begin{itemize}
+        \item wartości liczbowych (średnia, min, max, mediana),
+        \item wykresu słupkowego.
+    \end{itemize}
+\end{itemize}
+
+\section{Opis przyjętych rozwiązań programowych}
+
+\subsection{Struktura aplikacji}
+
+Aplikacja została podzielona na kilka głównych komponentów:
+
+\begin{itemize}
+    \item \textbf{MainWindow} – zarządza przełączaniem ekranów,
+    \item \textbf{IntroScreen} – wyświetla instrukcje,
+    \item \textbf{TestRunnerScreen} – realizuje test,
+    \item \textbf{ResultsScreen} – prezentuje wyniki,
+    \item \textbf{models.py} – przechowuje dane i statystyki.
+\end{itemize}
+
+---
+
+\subsection{Obsługa czasu i bodźców}
+
+Do sterowania testem wykorzystano klasę \texttt{QTimer}. Timer generuje opóźnienie przed pojawieniem się bodźca:
+
+\begin{lstlisting}[language=Python, caption=Losowe opóźnienie przed bodźcem]
+def random_delay_ms():
+    return random.randint(1500, 4000)
+\end{lstlisting}
+
+Po upływie czasu wywoływana jest funkcja generująca bodziec.
+
+---
+
+\subsection{Pomiar czasu reakcji}
+
+Czas reakcji mierzony jest w następujący sposób:
+
+\begin{lstlisting}[language=Python, caption=Pomiar czasu reakcji]
+def reaction_time_ms(start_time):
+    return (time.perf_counter() - start_time) * 1000
+\end{lstlisting}
+
+Zapamiętywany jest moment pojawienia się bodźca, a następnie odejmowany od czasu reakcji użytkownika.
+
+---
+
+\subsection{Obsługa klawiatury}
+
+Program umożliwia reakcję zarówno przyciskiem, jak i klawiaturą:
+
+\begin{lstlisting}[language=Python, caption=Obsługa klawiatury]
+def keyPressEvent(self, event):
+    if event.key() == Qt.Key_Space:
+        self.on_space_response()
+\end{lstlisting}
+
+W testach złożonych wykorzystywane są klawisze L oraz P.
+
+---
+
+\subsection{Zbieranie wyników}
+
+Każda próba zapisywana jest jako obiekt klasy \texttt{TrialResult}. Wyniki całego testu przechowywane są w klasie \texttt{TestSummary}.
+
+\begin{lstlisting}[language=Python, caption=Filtracja poprawnych wyników]
+def valid_times(self):
+    return [
+        result.reaction_time_ms
+        for result in self.real_results
+        if result.correct and result.reaction_time_ms is not None
+    ]
+\end{lstlisting}
+
+---
+
+\subsection{Obliczanie statystyk}
+
+Na podstawie poprawnych wyników obliczane są statystyki:
+
+\begin{lstlisting}[language=Python, caption=Obliczanie statystyk]
+def stats(self):
+    return {
+        "avg": statistics.mean(times),
+        "min": min(times),
+        "max": max(times),
+    }
+\end{lstlisting}
+
+Dodatkowo liczona jest mediana oraz odchylenie standardowe.
+
+---
+
+\section{Dyskusja osiągniętych wyników}
+
+\subsection{Zalety aplikacji}
+
+\begin{itemize}
+    \item Dokładny pomiar czasu dzięki funkcji \texttt{perf\_counter}.
+    \item Zastosowanie losowych opóźnień zwiększa wiarygodność testu.
+    \item Intuicyjny interfejs użytkownika.
+    \item Obsługa zarówno myszy, jak i klawiatury.
+    \item Graficzna prezentacja wyników (wykres).
+\end{itemize}
+
+\subsection{Wady aplikacji}
+
+\begin{itemize}
+    \item Brak zapisu wyników do pliku.
+    \item Brak możliwości powtórzenia pojedynczego testu bez restartu aplikacji.
+    \item Ograniczona liczba typów bodźców.
+\end{itemize}
+
+\section{Podsumowanie}
+
+Zrealizowana aplikacja spełnia wymagania zadania. Program poprawnie mierzy czas reakcji użytkownika oraz prezentuje wyniki w sposób czytelny i przejrzysty. Zastosowane rozwiązania programowe są proste, ale skuteczne i mogą stanowić podstawę do dalszej rozbudowy aplikacji.
+
+\end{document}
