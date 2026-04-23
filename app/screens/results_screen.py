@@ -8,7 +8,9 @@ from app.widgets import MplCanvas
 
 
 class ResultsScreen(QWidget):
+
     def __init__(self, parent=None):
+        
         super().__init__(parent)
 
         layout = QVBoxLayout(self)
@@ -41,6 +43,8 @@ class ResultsScreen(QWidget):
         self.details = QLabel("")
         self.details.setWordWrap(True)
         layout.addWidget(self.details)
+
+
 
     def set_data(self, summaries: List[TestSummary]):
         self.table.setRowCount(len(summaries))
@@ -97,6 +101,7 @@ class ResultsScreen(QWidget):
         self.canvas.draw()
 
         analytical_lines = []
+
         for summary in summaries:
             stats_data = summary.stats()
             analytical_lines.append(

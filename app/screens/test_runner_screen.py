@@ -143,11 +143,14 @@ class TestRunnerScreen(QWidget):
         self.next_trial()
 
     def next_trial(self):
+
         self.progress.setValue(len(self.results_training) + len(self.results_real))
 
         if self.is_training and self.current_trial >= self.training_trials:
+
             self.is_training = False
             self.current_trial = 0
+
             QMessageBox.information(
                 self,
                 "Koniec treningu",
@@ -170,6 +173,7 @@ class TestRunnerScreen(QWidget):
         self.delay_timer.start(random_delay_ms())
 
     def show_stimulus(self):
+
         self.waiting_for_stimulus = False
         self.active_stimulus = True
         self.stimulus_start_time = time.perf_counter()
@@ -184,9 +188,11 @@ class TestRunnerScreen(QWidget):
         self.timeout_timer.start(2000)
 
     def show_visual_stimulus(self):
+
         self.current_stimulus_type = "zielone światło"
         self.current_expected = "SPACE"
         self.stimulus_label.setText("KLIKNIJ TERAZ!")
+
         self.stimulus_label.setStyleSheet(
             "background-color: #2ecc71; color: white; border-radius: 12px;"
         )
@@ -199,6 +205,7 @@ class TestRunnerScreen(QWidget):
         self.stimulus_label.setStyleSheet(
             "background-color: #3498db; color: white; border-radius: 12px;"
         )
+
 
     def show_choice_stimulus(self):
         self.current_expected = "LEFT" if __import__("random").choice([True, False]) else "RIGHT"
@@ -213,6 +220,7 @@ class TestRunnerScreen(QWidget):
             "background-color: #f39c12; color: black; border-radius: 12px;"
         )
         self.info_label.setText("Reakcja złożona: L dla lewej, P dla prawej.")
+
 
     def register_result(self, result: TrialResult):
         if self.is_training:
@@ -339,9 +347,9 @@ class TestRunnerScreen(QWidget):
 
     def finish_test(self):
         names = {
-            "simple_visual": "Test 1 – prosty czas reakcji optycznej",
-            "simple_audio": "Test 2 – prosty czas reakcji akustycznej",
-            "choice_visual": "Test 3 – złożony czas reakcji optycznej",
+            "simple_visual": "Test 1, prosty czas reakcji optycznej",
+            "simple_audio": "Test 2, prosty czas reakcji akustycznej",
+            "choice_visual": "Test 3, złożony czas reakcji optycznej",
         }
 
         summary = TestSummary(

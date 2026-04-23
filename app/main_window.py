@@ -39,21 +39,21 @@ class MainWindow(QMainWindow):
         )
 
         self.screen_visual_info = IntroScreen(
-            "Test 1 - prosty czas reakcji optycznej",
+            "Test 1, prosty czas reakcji optycznej",
             "Po losowym czasie na ekranie pojawi się zielony kolor. "
             "Twoim zadaniem jest jak najszybciej nacisnąć SPACJĘ albo przycisk REAKCJA.\n\n"
             "Nie reaguj przed pojawieniem się zielonego koloru."
         )
 
         self.screen_audio_info = IntroScreen(
-            "Test 2 - prosty czas reakcji akustycznej",
+            "Test 2, prosty czas reakcji akustycznej",
             "Po losowym czasie usłyszysz sygnał dźwiękowy. "
             "Twoim zadaniem jest jak najszybciej nacisnąć SPACJĘ albo przycisk REAKCJA.\n\n"
             "Nie reaguj przed sygnałem."
         )
 
         self.screen_choice_info = IntroScreen(
-            "Test 3 - złożony czas reakcji optycznej",
+            "Test 3, złożony czas reakcji optycznej",
             "Po losowym czasie pojawi się strzałka:\n"
             "• dla ← naciśnij klawisz L,\n"
             "• dla → naciśnij klawisz P.\n\n"
@@ -80,7 +80,7 @@ class MainWindow(QMainWindow):
 
     def start_visual_test(self):
         self.runner.configure(
-            "Test 1 - prosty czas reakcji optycznej",
+            "Test 1, prosty czas reakcji optycznej",
             "Naciśnij SPACJĘ lub przycisk, gdy zobaczysz zielony kolor.",
             "simple_visual"
         )
@@ -88,7 +88,7 @@ class MainWindow(QMainWindow):
 
     def start_audio_test(self):
         self.runner.configure(
-            "Test 2 - prosty czas reakcji akustycznej",
+            "Test 2, prosty czas reakcji akustycznej",
             "Naciśnij SPACJĘ lub przycisk, gdy usłyszysz sygnał dźwiękowy.",
             "simple_audio"
         )
@@ -96,7 +96,7 @@ class MainWindow(QMainWindow):
 
     def start_choice_test(self):
         self.runner.configure(
-            "Test 3 - złożony czas reakcji optycznej",
+            "Test 3, złożony czas reakcji optycznej",
             "Dla lewej strzałki naciśnij L, a dla prawej P.",
             "choice_visual"
         )

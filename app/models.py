@@ -4,6 +4,8 @@ import statistics
 
 
 @dataclass
+
+#wyniki kazdej pojedynczej proby
 class TrialResult:
     stimulus_type: str
     reaction_time_ms: Optional[float] = None
@@ -16,25 +18,28 @@ class TrialResult:
 
 @dataclass
 class TestSummary:
+
     name: str
+
     training_results: List[TrialResult] = field(default_factory=list)
     real_results: List[TrialResult] = field(default_factory=list)
 
-    def valid_times(self) -> List[float]:
+    def valid_times(self):
+        
         return [
             result.reaction_time_ms
             for result in self.real_results
             if result.correct and result.reaction_time_ms is not None
         ]
 
-    def total_errors(self) -> int:
+    def total_errors(self):
         return sum(
             1
             for result in self.real_results
             if (not result.correct) or result.too_early or result.missed
         )
 
-    def stats(self) -> Dict[str, float]:
+    def stats(self):
         times = self.valid_times()
 
         if not times:
