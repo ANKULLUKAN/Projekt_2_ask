@@ -32,7 +32,8 @@ class MainWindow(QMainWindow):
 
     def make_screens(self):
         self.screen_welcome = IntroScreen(
-            "Test sprawności psychomotorycznej",
+            "Test sprawności psychomotorycznej\n"
+            "Łukasz Mroczek 198146, Łukasz Orluk 197641",
             "Aplikacja bada prosty i złożony czas reakcji na bodźce optyczne oraz akustyczne.\n\n"
             "Każdy test składa się z opisu, fazy treningowej oraz testu właściwego."
         )
