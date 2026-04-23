@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QLabel, QPushButton, QVBoxLayout, QWidget
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QLabel, QPushButton, QVBoxLayout, QWidget
 
 from app.widgets import CenterCard
 
@@ -9,18 +9,18 @@ class IntroScreen(QWidget):
         super().__init__()
 
         layout = QVBoxLayout(self)
-        layout.setAlignment(Qt.AlignCenter)
+        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         card = CenterCard()
         card_layout = QVBoxLayout(card)
 
         title = QLabel(title_text)
         title.setObjectName("title")
-        title.setAlignment(Qt.AlignCenter)
+        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         body = QLabel(body_text)
         body.setObjectName("body")
-        body.setAlignment(Qt.AlignCenter)
+        body.setAlignment(Qt.AlignmentFlag.AlignCenter)
         body.setWordWrap(True)
 
         #przycisk akcji

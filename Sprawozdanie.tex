@@ -38,7 +38,7 @@ Celem zadania było stworzenie aplikacji uzależnionej od czasu, umożliwiające
 \subsection{Założenia szczegółowe}
 
 \begin{itemize}
-    \item Aplikacja została wykonana w języku Python z wykorzystaniem biblioteki PyQt5 oraz matplotlib.
+    \item Aplikacja została wykonana w języku Python z wykorzystaniem biblioteki PyQt6 oraz matplotlib.
     \item Program bada trzy typy reakcji:
     \begin{itemize}
         \item prosty czas reakcji na bodziec optyczny,
@@ -108,7 +108,7 @@ Program umożliwia reakcję zarówno przyciskiem, jak i klawiaturą:
 
 \begin{lstlisting}[language=Python, caption=Obsługa klawiatury]
 def keyPressEvent(self, event):
-    if event.key() == Qt.Key_Space:
+    if event.key() == Qt.Key.Key_Space:
         self.on_space_response()
 \end{lstlisting}
 

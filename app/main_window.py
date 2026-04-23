@@ -1,5 +1,5 @@
 from typing import List
-from PyQt5.QtWidgets import QMainWindow, QStackedWidget
+from PyQt6.QtWidgets import QMainWindow, QStackedWidget
 
 from app.models import TestSummary
 from app.screens.intro_screen import IntroScreen

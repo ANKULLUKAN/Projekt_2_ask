@@ -1,7 +1,7 @@
 import random
 import time
 
-from PyQt5.QtCore import QTimer
+from PyQt6.QtCore import QTimer
 
 #losowo ustawiamy czas w ktorym pokaze ise bodziec
 def random_delay_ms():

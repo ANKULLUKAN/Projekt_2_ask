@@ -1,7 +1,7 @@
 import statistics
 from typing import List
 
-from PyQt5.QtWidgets import QLabel, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QLabel, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
 
 from app.models import TestSummary
 from app.widgets import MplCanvas

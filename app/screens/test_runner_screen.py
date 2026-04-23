@@ -1,8 +1,8 @@
 import time
 from typing import List
 
-from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtWidgets import (
     QApplication,
     QHBoxLayout,
     QLabel,
@@ -28,17 +28,17 @@ class TestRunnerScreen(QWidget):
         self.main_window = None
 
         self.layout = QVBoxLayout(self)
-        self.layout.setAlignment(Qt.AlignCenter)
+        self.layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         #tytuł testu
         self.title = QLabel("")
         self.title.setObjectName("title")
-        self.title.setAlignment(Qt.AlignCenter)
+        self.title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         #instrukcje do testu
         self.instruction = QLabel("")
         self.instruction.setObjectName("subtitle")
-        self.instruction.setAlignment(Qt.AlignCenter)
+        self.instruction.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.instruction.setWordWrap(True)
 
         #pasek postępu
@@ -49,12 +49,12 @@ class TestRunnerScreen(QWidget):
 
         #bodziec
         self.stimulus_label = QLabel("Czekaj na bodziec...")
-        self.stimulus_label.setAlignment(Qt.AlignCenter)
+        self.stimulus_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stimulus_label.setMinimumHeight(220)
         self.stimulus_label.setObjectName("stimulus")
 
         self.info_label = QLabel("")
-        self.info_label.setAlignment(Qt.AlignCenter)
+        self.info_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.info_label.setWordWrap(True)
 
         self.start_btn = QPushButton("Rozpocznij")
@@ -97,13 +97,13 @@ class TestRunnerScreen(QWidget):
 
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Space:
+        if event.key() == Qt.Key.Key_Space:
 
             self.on_space_response()
 
-        elif self.test_type == "choice_visual" and event.key() in (Qt.Key_L, Qt.Key_P):
+        elif self.test_type == "choice_visual" and event.key() in (Qt.Key.Key_L, Qt.Key.Key_P):
 
-            self.on_choice_response("LEFT" if event.key() == Qt.Key_L else "RIGHT")
+            self.on_choice_response("LEFT" if event.key() == Qt.Key.Key_L else "RIGHT")
             
         else:
             super().keyPressEvent(event)
