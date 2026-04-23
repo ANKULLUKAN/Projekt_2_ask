@@ -4,11 +4,11 @@ import time
 from PyQt5.QtCore import QTimer
 
 #losowo ustawiamy czas w ktorym pokaze ise bodziec
-def random_delay_ms() -> int:
+def random_delay_ms():
     return random.randint(1000, 4000)
 
 #liczenie reakcji wms
-def reaction_time_ms(start_time: float) -> float:
+def reaction_time_ms(start_time: float):
     return (time.perf_counter() - start_time) * 1000.0
 
 #ustawiamy timer
